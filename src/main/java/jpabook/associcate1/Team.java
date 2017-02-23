@@ -1,4 +1,4 @@
-package jpabook.associcate;
+package jpabook.associcate1;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,7 +16,8 @@ public class Team {
 
     private String name;
 
-    @OneToMany(mappedBy = "team", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany
+    @JoinColumn(name = "TEAM_ID")
     private List<Member> members = new ArrayList<>();
 
     public Team() {

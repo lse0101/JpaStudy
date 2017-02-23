@@ -8,6 +8,41 @@
         <class>jpabook.associcate.Member</class>
         <class>jpabook.associcate.Team</class>
 
+        <!--<class>jpabook.associcate1.Member</class>-->
+        <!--<class>jpabook.associcate1.Team</class>-->
+
+        <!--<class>jpabook.multiplyAssocicate.Member</class>-->
+        <!--<class>jpabook.multiplyAssocicate.Product</class>-->
+        <!--<class>jpabook.multiplyAssocicate.Order</class>-->
+
+        <!--<class>jpabook.inheritancejoinmapping.Item</class>-->
+        <!--<class>jpabook.inheritancejoinmapping.Book</class>-->
+        <!--<class>jpabook.inheritancejoinmapping.Movie</class>-->
+
+        <!--<class>jpabook.inheritancesingletablemapping.Item</class>-->
+        <!--<class>jpabook.inheritancesingletablemapping.Book</class>-->
+        <!--<class>jpabook.inheritancesingletablemapping.Movie</class>-->
+
+
+        <!--<class>jpabook.mappedsuperclass.BaseEntity</class>-->
+        <!--<class>jpabook.mappedsuperclass.Member</class>-->
+        <!--<class>jpabook.mappedsuperclass.Seller</class>-->
+
+        <!--<class>jpabook.idclass.Parent</class>-->
+        <!--<class>jpabook.idclass.Child</class>-->
+        <!--<class>jpabook.idclass.GrandChild</class>-->
+
+        <!--<class>jpabook.embeddedid.Parent</class>-->
+        <!--<class>jpabook.embeddedid.Child</class>-->
+        <!--<class>jpabook.embeddedid.GrandChild</class>-->
+
+        <!--<class>jpabook.jointable.Parent</class>-->
+        <!--<class>jpabook.jointable.Child</class>-->
+
+        <!--<class>jpabook.secondarytable.Board</class>-->
+        <!--<class>jpabook.embeddedtype.Member</class>-->
+        <!--<class>jpabook.embeddedtype.PhoneServiceProvider</class>-->
+
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>

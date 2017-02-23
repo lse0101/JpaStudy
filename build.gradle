@@ -3,14 +3,22 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 
+
 ext {
     javaVersion = 1.8
+    jpaMetamodelGeneratedDir="/src/main/java/metamodel"
 }
 
 sourceCompatibility = javaVersion
 targetCompatibility = javaVersion
 
-[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+[compileJava, compileTestJava]*.options*.encoding = "UTF-8"
+
+configurations{
+    jpaMetamodelGen{
+        extendsFrom compile
+    }
+}
 
 repositories {
     mavenCentral()
@@ -18,6 +26,45 @@ repositories {
 
 dependencies {
     compile 'org.hibernate:hibernate-entitymanager:4.3.10.Final'
+    compile 'com.querydsl:querydsl-jpa-codegen:4.1.4'
+    compile 'org.slf4j:slf4j-log4j12:1.7.22'
     compile 'com.h2database:h2:1.4.187'
+    jpaMetamodelGen 'org.hibernate:hibernate-jpamodelgen:1.2.0.Final'
     testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+sourceSets{
+    main{
+        java{
+            srcDir jpaMetamodelGeneratedDir
+        }
+    }
+}
+
+task generateJpaMetamodel(type: JavaCompile) {
+    def targetDir = file(jpaMetamodelGeneratedDir)
+    def compiledDestinationDir = "${buildDir}/tmp/apt-jpa"
+    doFirst {
+        delete(targetDir)
+        targetDir.mkdirs()
+    }
+
+    doLast {
+        delete(compiledDestinationDir)
+    }
+
+    options.encoding="UTF-8"
+
+    classpath = configurations.jpaMetamodelGen
+    source = sourceSets.main.java
+    destinationDir = file(compiledDestinationDir)
+    options.define(
+            compilerArgs: [
+                    "-nowarn",
+                    "-proc:only",
+                    "-encoding","UTF-8",
+                    "-s", targetDir.absolutePath,
+                    "-processor","org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor"
+            ]
+    )
 }

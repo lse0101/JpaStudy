@@ -14,9 +14,19 @@ public class Member {
 
     private String username;
 
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID")
+    private Integer age;
+
+    @ManyToOne()
+    @JoinColumn(name = "TEAM_ID", nullable = false)
     private Team team;
+
+    public Member(String id, String username, Integer age) {
+        this.id = id;
+        this.username = username;
+        this.age = age;
+    }
+
+    public Member() {}
 
     public String getId() {
         return id;
@@ -39,7 +49,19 @@ public class Member {
     }
 
     public void setTeam(Team team) {
+        if (this.team != null) {
+            this.team.getMembers().remove(this);
+        }
         this.team = team;
+        team.getMembers().add(this);
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     @Override
