@@ -2,12 +2,16 @@ group 'com.crazysm'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'idea'
 
 
 ext {
     javaVersion = 1.8
-    jpaMetamodelGeneratedDir="/src/main/java/metamodel"
+    jpaMetamodelGeneratedDir="/src/main/generated/"
 }
+
+buildDir='build'
 
 sourceCompatibility = javaVersion
 targetCompatibility = javaVersion
@@ -26,11 +30,18 @@ repositories {
 
 dependencies {
     compile 'org.hibernate:hibernate-entitymanager:4.3.10.Final'
-    compile 'com.querydsl:querydsl-jpa-codegen:4.1.4'
     compile 'org.slf4j:slf4j-log4j12:1.7.22'
-    compile 'com.h2database:h2:1.4.187'
+    runtime 'ch.qos.logback:logback-classic:1.1.1'
+    runtime 'com.h2database:h2:1.4.187'
+    compile 'com.mysema.querydsl:querydsl-jpa:3.6.3'
+    compile 'com.mysema.querydsl:querydsl-apt:3.6.3'
+    compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
+    compile 'org.springframework:spring-orm:4.1.6.RELEASE'
+    compile 'org.apache.tomcat:tomcat-jdbc:7.0.57'
+    runtime 'javax.servlet:jstl:1.2'
     jpaMetamodelGen 'org.hibernate:hibernate-jpamodelgen:1.2.0.Final'
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile 'org.springframework:spring-test:4.1.6.RELEASE'
 }
 
 sourceSets{
@@ -39,7 +50,9 @@ sourceSets{
             srcDir jpaMetamodelGeneratedDir
         }
     }
+
 }
+
 
 task generateJpaMetamodel(type: JavaCompile) {
     def targetDir = file(jpaMetamodelGeneratedDir)
@@ -64,7 +77,26 @@ task generateJpaMetamodel(type: JavaCompile) {
                     "-proc:only",
                     "-encoding","UTF-8",
                     "-s", targetDir.absolutePath,
-                    "-processor","org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor"
+                    "-processor","com.mysema.query.apt.jpa.JPAAnnotationProcessor"
             ]
     )
+}
+task printEnv {
+    doLast{
+        sourceSets.main.java.srcDirs.each { i ->
+            print i
+        }
+    }
+}
+
+compileJava{
+    dependsOn generateJpaMetamodel
+    source jpaMetamodelGeneratedDir
+}
+
+idea{
+    module{
+        inheritOutputDirs = false
+        sourceDirs += file(jpaMetamodelGeneratedDir)
+    }
 }

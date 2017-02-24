@@ -30,4 +30,12 @@ public class MemberDto {
     public void setAge(Integer age) {
         this.age = age;
     }
+
+    @Override
+    public String toString() {
+        return "MemberDto{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
 }
