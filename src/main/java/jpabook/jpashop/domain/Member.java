@@ -1,11 +1,11 @@
-package jpabook.shop.entity;
+package jpabook.jpashop.domain;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by lse0101 on 2017-02-13.
+ * Created by lse0101 on 2017-02-24.
  */
 @Entity
 public class Member {
@@ -16,12 +16,11 @@ public class Member {
     private Long id;
 
     private String name;
-    private String city;
-    private String street;
-    private String zipcode;
 
-    @OneToMany(mappedBy = "member")
-    private List<Order> orders = new ArrayList<>();
+    @Embedded
+    private Address address;
+
+    private List<Order> orders = new ArrayList<Order>();
 
     public Long getId() {
         return id;
@@ -39,24 +38,12 @@ public class Member {
         this.name = name;
     }
 
-    public String getCity() {
-        return city;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getZipcode() {
-        return zipcode;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public List<Order> getOrders() {
@@ -65,9 +52,5 @@ public class Member {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
-    }
-
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
     }
 }

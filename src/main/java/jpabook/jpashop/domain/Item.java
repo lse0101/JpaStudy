@@ -1,17 +1,17 @@
-package jpabook.shop.entity;
+package jpabook.jpashop.domain;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by lse0101 on 2017-02-13.
+ * Created by lse0101 on 2017-02-24.
  */
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "DTYPE")
 public class Item {
-
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     @Column(name = "ITEM_ID")
     private Long id;
 
@@ -20,7 +20,7 @@ public class Item {
     private int stockQuantity;
 
     @ManyToMany(mappedBy = "items")
-    private List<Category> categories = new ArrayList<>();
+    private List<Category> categories = new ArrayList<Category>();
 
     public Long getId() {
         return id;

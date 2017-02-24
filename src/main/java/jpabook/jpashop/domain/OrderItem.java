@@ -1,28 +1,28 @@
-package jpabook.shop.entity;
+package jpabook.jpashop.domain;
 
 import javax.persistence.*;
 
 /**
- * Created by lse0101 on 2017-02-13.
+ * Created by lse0101 on 2017-02-24.
  */
 @Entity
 @Table(name = "ORDER_ITEM")
 public class OrderItem {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     @Column(name = "ORDER_ITEM_ID")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ITEM_ID")
     private Item item;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
     private int orderPrice;
+
     private int count;
 
     public Long getId() {
@@ -64,5 +64,4 @@ public class OrderItem {
     public void setCount(int count) {
         this.count = count;
     }
-
 }
