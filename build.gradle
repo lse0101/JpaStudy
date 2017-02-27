@@ -1,18 +1,31 @@
 group 'com.crazysm'
 version '1.0-SNAPSHOT'
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.akhikhl.gretty:gretty:+'
+    }
+}
+
 apply plugin: 'java'
 apply plugin: 'war'
-apply plugin: 'idea'
-
+apply plugin: 'org.akhikhl.gretty'
 
 ext {
     javaVersion = 1.8
     jpaMetamodelGeneratedDir="/src/main/generated/"
 }
 
-buildDir='build'
+gretty{
+    httpPort = 80
+    contextPath = '/'
+}
 
+buildDir='build'
 sourceCompatibility = javaVersion
 targetCompatibility = javaVersion
 
@@ -44,15 +57,20 @@ dependencies {
     testCompile 'org.springframework:spring-test:4.1.6.RELEASE'
 }
 
-sourceSets{
-    main{
-        java{
-            srcDir jpaMetamodelGeneratedDir
-        }
+//sourceSets{
+//    main{
+//        java{
+//            srcDir jpaMetamodelGeneratedDir
+//        }
+//    }
+//}
+
+task printSourceSets(){
+    sourceSets*.allSource.srcDirTrees.flatten().dir.each{ dir->
+        println dir
+
     }
-
 }
-
 
 task generateJpaMetamodel(type: JavaCompile) {
     def targetDir = file(jpaMetamodelGeneratedDir)
@@ -81,22 +99,15 @@ task generateJpaMetamodel(type: JavaCompile) {
             ]
     )
 }
-task printEnv {
-    doLast{
-        sourceSets.main.java.srcDirs.each { i ->
-            print i
-        }
-    }
-}
 
-compileJava{
-    dependsOn generateJpaMetamodel
-    source jpaMetamodelGeneratedDir
-}
+//compileJava{
+//    dependsOn generateJpaMetamodel
+//    source jpaMetamodelGeneratedDir
+//}
 
-idea{
+/*idea{
     module{
         inheritOutputDirs = false
         sourceDirs += file(jpaMetamodelGeneratedDir)
     }
-}
+}*/

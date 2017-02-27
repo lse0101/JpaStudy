@@ -34,10 +34,10 @@ public class AssocicateTest {
 //        testCriteriaWithMetaModelgen();
 //        testQueryDsl();
 //        testQueryDsl1();
-        testQueryDsl2();
-        testQueryDsl3();
-        testQueryDsl4();
-        testQueryDsl5();
+//        testQueryDsl2();
+//        testQueryDsl3();
+//        testQueryDsl4();
+//        testQueryDsl5();
 
 //        testQueryDSL();
 //        updateRelation();
@@ -51,7 +51,7 @@ public class AssocicateTest {
     }
 
     private static void testQueryDsl5() {
-        EntityManager em = emf.createEntityManager();
+/*        EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
         tx.begin();
@@ -65,11 +65,11 @@ public class AssocicateTest {
             System.out.println(dto);
         }
         tx.commit();
-        em.close();
+        em.close();*/
     }
 
     private static void testQueryDsl4() {
-        EntityManager em = emf.createEntityManager();
+/*        EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
         tx.begin();
@@ -83,11 +83,11 @@ public class AssocicateTest {
                 ))
                 .list(m);
         tx.commit();
-        em.close();
+        em.close();*/
     }
 
     private static void testQueryDsl3() {
-        EntityManager em = emf.createEntityManager();
+/*        EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
         tx.begin();
@@ -103,11 +103,11 @@ public class AssocicateTest {
         System.out.println(rt.getMembers());
 
         tx.commit();
-        em.close();
+        em.close();*/
     }
 
     private static void testQueryDsl2() {
-        EntityManager em = emf.createEntityManager();
+/*        EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
         tx.begin();
@@ -125,11 +125,11 @@ public class AssocicateTest {
         }
 
         tx.commit();
-        em.close();
+        em.close();*/
     }
 
     private static void testQueryDsl1() {
-        EntityManager em = emf.createEntityManager();
+/*        EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
         tx.begin();
@@ -145,11 +145,11 @@ public class AssocicateTest {
         }
 
         tx.commit();
-        em.close();
+        em.close();*/
     }
 
     private static void testQueryDsl() {
-        EntityManager em = emf.createEntityManager();
+/*        EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
@@ -163,7 +163,7 @@ public class AssocicateTest {
                         .list(member);
 
         tx.commit();
-        em.close();
+        em.close();*/
     }
 
     private static void testCriteriaWithMetaModelgen() {
