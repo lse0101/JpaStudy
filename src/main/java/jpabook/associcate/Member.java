@@ -6,6 +6,7 @@ import javax.persistence.*;
  * Created by lse0101 on 2017-02-13.
  */
 @Entity
+@NamedEntityGraph(name="Member.withTeam", attributeNodes = {@NamedAttributeNode("team")})
 public class Member {
 
     @Id

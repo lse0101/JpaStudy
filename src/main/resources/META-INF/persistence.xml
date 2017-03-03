@@ -8,6 +8,9 @@
         <class>jpabook.associcate.Member</class>
         <class>jpabook.associcate.Team</class>
 
+        <!--<class>jpabook.listener.Duck</class>-->
+        <!--<class>jpabook.listener.Duck1</class>-->
+
         <!--<class>jpabook.associcate1.Member</class>-->
         <!--<class>jpabook.associcate1.Team</class>-->
 

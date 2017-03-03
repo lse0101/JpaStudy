@@ -1,12 +1,10 @@
 package jpabook.associcate;
 
-import com.mysema.query.jpa.JPASubQuery;
-import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.Projections;
-
 import javax.persistence.*;
 import javax.persistence.criteria.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lse0101 on 2017-02-13.
@@ -17,6 +15,8 @@ public class AssocicateTest {
     public static void main(String[] args) {
         testSave();
 
+//        testEntityGraph();
+        testDynamicEntityGraph();
 //        testSaveWithCascade();
 //        testRemoveWithCascade();
 //        testObjectGraph();
@@ -48,6 +48,37 @@ public class AssocicateTest {
 //        testSave2();
 
         emf.close();
+    }
+
+    private static void testDynamicEntityGraph() {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+        tx.begin();
+        EntityGraph<Member> graph = em.createEntityGraph(Member.class);
+        graph.addAttributeNodes("team");
+
+        Map hints = new HashMap();
+        hints.put("javax.persistence.fetchgraph", graph);
+
+        Member member = em.find(Member.class, "member0", hints);
+        tx.commit();
+        em.close();
+    }
+
+    private static void testEntityGraph() {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+        tx.begin();
+        EntityGraph graph = em.getEntityGraph("Member.withTeam");
+        Map hints = new HashMap();
+        hints.put("javax.persistence.fetchgraph", graph);
+
+        em.find(Member.class, "member0", hints);
+
+        tx.commit();
+        em.close();
     }
 
     private static void testQueryDsl5() {

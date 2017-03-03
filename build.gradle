@@ -13,6 +13,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'war'
+apply plugin: 'idea'
 apply plugin: 'org.akhikhl.gretty'
 
 ext {
@@ -50,6 +51,7 @@ dependencies {
     compile 'com.mysema.querydsl:querydsl-apt:3.6.3'
     compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
     compile 'org.springframework:spring-orm:4.1.6.RELEASE'
+    compile 'org.springframework.data:spring-data-jpa:1.8.0.RELEASE'
     compile 'org.apache.tomcat:tomcat-jdbc:7.0.57'
     runtime 'javax.servlet:jstl:1.2'
     jpaMetamodelGen 'org.hibernate:hibernate-jpamodelgen:1.2.0.Final'
@@ -57,13 +59,13 @@ dependencies {
     testCompile 'org.springframework:spring-test:4.1.6.RELEASE'
 }
 
-//sourceSets{
-//    main{
-//        java{
-//            srcDir jpaMetamodelGeneratedDir
-//        }
-//    }
-//}
+sourceSets{
+    main{
+        java{
+            srcDir jpaMetamodelGeneratedDir
+        }
+    }
+}
 
 task printSourceSets(){
     sourceSets*.allSource.srcDirTrees.flatten().dir.each{ dir->
@@ -100,14 +102,14 @@ task generateJpaMetamodel(type: JavaCompile) {
     )
 }
 
-//compileJava{
-//    dependsOn generateJpaMetamodel
-//    source jpaMetamodelGeneratedDir
-//}
+compileJava{
+    dependsOn generateJpaMetamodel
+    source jpaMetamodelGeneratedDir
+}
 
-/*idea{
+idea{
     module{
         inheritOutputDirs = false
         sourceDirs += file(jpaMetamodelGeneratedDir)
     }
-}*/
+}
